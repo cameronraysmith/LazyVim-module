@@ -26,13 +26,18 @@ in
         # NOTE: enabling rust treesitter on Darwin leads to
         # error: The option `programs.neovim.plugins."[definition 2-entry 1]"
         # .__darwinAllowLocalNetworking' does not exist.
-        # nvim-treesitter.withPlugins (
-        #   plugins: builtins.attrValues { 
-        #     inherit (plugins) 
-        #       rust
-        #       ron;
-        #   }
-        # )
+        (if pkgs.stdenv.isDarwin then
+          pkgs.vimUtils.buildVimPlugin {
+            inherit (nvim-treesitter.withPlugins (
+              plugins: with plugins; [ rust ron ]
+            )) pname version src meta;
+            __darwinAllowLocalNetworking = true;
+          }
+        else
+          nvim-treesitter.withPlugins (
+            plugins: with plugins; [ rust ron ]
+          )
+        )
         #
         # NOTE: crates-nvim recent update required
         # crates-nvim
