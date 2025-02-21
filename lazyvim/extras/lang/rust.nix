@@ -1,9 +1,8 @@
 self:
-{
-  config,
-  lib,
-  pkgs,
-  ...
+{ config
+, lib
+, pkgs
+, ...
 }:
 let
   inherit (lib.modules) mkIf;
@@ -27,12 +26,13 @@ in
         # error: The option `programs.neovim.plugins."[definition 2-entry 1]"
         # .__darwinAllowLocalNetworking' does not exist.
         (if pkgs.stdenv.isDarwin then
-          pkgs.vimUtils.buildVimPlugin {
-            inherit (nvim-treesitter.withPlugins (
-              plugins: with plugins; [ rust ron ]
-            )) pname version src meta;
-            __darwinAllowLocalNetworking = true;
-          }
+          pkgs.vimUtils.buildVimPlugin
+            {
+              inherit (nvim-treesitter.withPlugins (
+                plugins: with plugins; [ rust ron ]
+              )) pname version src meta;
+              __darwinAllowLocalNetworking = true;
+            }
         else
           nvim-treesitter.withPlugins (
             plugins: with plugins; [ rust ron ]
