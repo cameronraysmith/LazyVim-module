@@ -19,7 +19,6 @@ in
   config = mkIf cfg.extras.lang.rust.enable {
     programs.neovim = {
       extraPackages = with pkgs; [
-        rust-analyzer
         lldb
       ];
 
