@@ -33,6 +33,7 @@ in
     ./extras/lang/nix.nix
     ./extras/lang/prisma.nix
     ./extras/lang/python.nix
+    ./extras/lang/rust.nix
     ./extras/lang/svelte.nix
     ./extras/lang/tailwind.nix
     ./extras/lang/typescript.nix
